@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Дневник программиста{% endblock %}
+
+{% block content %}
+<section id="notes">
+    <h2>Дневник программиста</h2>
+
+    <form method="post" class="note-form">
+        <label for="title">Заголовок записи:</label>
+        <input type="text" id="title" name="title" required placeholder="Введите заголовок...">
+
+        <label for="text">Текст записи:</label>
+        <textarea id="text" name="text" required rows="5" placeholder="Введите текст..."></textarea>
+
+        <button type="submit">Добавить запись</button>
+    </form>
+
+    <a href="{{ url_for('index') }}" class="back-link">← Назад на главную</a>
+
+    {% if notes %}
+        <h3>Все записи ({{ notes|length }})</h3>
+        <div class="notes-list">
+            {% for title, text in notes.items() %}
+                <div class="note-item">
+                    <h4>{{ title }}</h4>
+                    <p>{{ text }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="empty">Записей пока нет. Добавьте первую!</p>
+    {% endif %}
+</section>
+{% endblock %}
